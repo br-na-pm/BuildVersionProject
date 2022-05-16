@@ -1,3 +1,6 @@
 [submodule "AS-4.11/Logical/BuildVersion"]
 	path = AS-4.11/Logical/BuildVersion
 	url = https://github.com/br-na-pm/BuildVersion.git
+[submodule "AS-4.11/Logical/mappView/Widgets/BuildVersionWidget"]
+	path = AS-4.11/Logical/mappView/Widgets/BuildVersionWidget
+	url = https://github.com/br-na-pm/BuildVersionWidget.git
