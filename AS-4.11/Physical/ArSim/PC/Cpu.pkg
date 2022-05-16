@@ -21,7 +21,7 @@
   </Objects>
   <Configuration ModuleId="PC_any">
     <AutomationRuntime Version="B4.92" />
-    <Build GccVersion="4.1.2" />
+    <Build GccVersion="4.1.2" PreBuildStep="PowerShell -ExecutionPolicy ByPass -File $(WIN32_AS_PROJECT_PATH)\Logical\BuildVersion\BuildVersion.ps1 &quot;$(WIN32_AS_PROJECT_PATH)&quot; &quot;$(AS_VERSION)&quot; &quot;$(AS_USER_NAME)&quot; &quot;$(AS_PROJECT_NAME)&quot; &quot;$(AS_CONFIGURATION)&quot; &quot;$(AS_BUILD_MODE)&quot;&#xD;&#xA;" />
     <DefaultTargetMemory Tasks="UserROM" />
     <Vc FirmwareVersion="V4.72.5" />
   </Configuration>
