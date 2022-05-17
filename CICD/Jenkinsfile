@@ -1,0 +1,164 @@
+def mailRecipients = "Connor.Trostel@br-automation.com;"
+
+def Version() {
+    echo "Version";
+    def branch = Branch();
+    def tag = Tag();
+    def count = powershell(returnStdout: true, script: "git rev-list HEAD --count").trim();
+    try {
+        count = powershell(returnStdout: true, script: "git rev-list $tag..HEAD --count").trim();
+    }
+    catch (err){
+    }
+    echo branch
+    if (branch.matches("release/(.*)")) {
+        echo "Release Branch";
+        return "$tag.$count";
+    }
+    echo "Not Release Branch";
+    tag = tag.substring(0, tag.lastIndexOf('.'))
+    tag = tag + '.9';
+    return "$tag.$count";
+}
+
+def Tag() {
+    echo "Tag";
+    def tag = "V0.0.9"
+    try{
+        tag = powershell(returnStdout: true, script: "git describe --abbrev=0 --always").trim();
+    }
+    catch (err){
+    }
+    return "$tag";
+}
+
+def Branch(){
+    echo "Branch";
+    def branch = "";
+    if (env.BRANCH_NAME){
+        echo "environment variable set"
+        branch = "${env.BRANCH_NAME}";
+    }else{
+        echo "environment variable not set"
+        branch = powershell(returnStdout: true, script: "git branch --show-current").trim();
+    }
+    echo "$branch";
+    return "$branch";
+}
+
+def ExportName(){
+    def exportName = "";
+    def tag = "BuildVersion_";
+    tag = Version();
+    echo "Export Name";
+
+    exportName = "BuildVersion_" + tag + ".zip";
+    echo "$exportName";
+    return "$exportName";
+}
+
+pipeline {
+    agent any 
+    triggers {
+        cron(Branch().matches('release*') ? '50 8 * * *' : '')
+    }
+
+    environment {
+        PROJECT_DIR = "$WORKSPACE\\AS-4.11\\";
+        DOCUMENTATION_DIR = "$WORKSPACE\\Documents\\DocStudio"
+        EXPORT_CONFIG_DIR = "$WORKSPACE\\CICD\\ExportConfigurations"
+        EXPORT_DIR = "$WORKSPACE\\CICD\\build"        
+    }
+    stages {
+        stage('Build AS') {
+            steps {
+                powershell(returnStdout: true, script:  "python \"$ProjectBuilderScripts\\ASProjectCompile.py\" --project \"$PROJECT_DIR\" --configuration ARsim");
+            }
+        }
+        stage('Create Framework Export') {
+            environment {
+                VERSION = Version()
+                EXPORT_NAME = 'BuildVersion'
+            }
+            steps {
+                powershell(returnStdout: true, script: "python \"$ProjectBuilderScripts\\Export.py\" --project \"$PROJECT_DIR\" --config \"$EXPORT_CONFIG_DIR\\BuildVersionProject.json\" --output \"$EXPORT_DIR\" --physical \"Physical\\ArSim\"");
+            }
+        }
+        stage('Create Installer') {
+            environment {
+                VERSION = Version()
+            }
+            steps {
+                powershell(returnStdout: true, script: "python \"$ProjectBuilderScripts\\UpdateInstallerVersion.py\" --project \"$WORKSPACE\\CICD\\InstallerSetup\\\" --name BuildVersion --version $VERSION");
+                powershell(returnStdout: true, script: "& 'C:\\Program Files (x86)\\NSIS\\makensis.exe' \"$WORKSPACE\\CICD\\InstallerSetup\\SetupTechnologySolutionComplete.nsi\"");
+            }
+        }
+        stage('Deploy Release')
+        {
+            environment {
+                VERSION = Version()
+                TAG = Tag()
+            }
+            when
+            {
+                branch 'release/*'
+            }
+            steps {
+                //bat "xcopy \"$WORKSPACE\\CICD\\InstallerSetup\\Install\\*.exe\" \"C:\\Users\\buchananw\\ABB\\Team Orange - MCR Framework\\ObjectSpawner\\Releases\\$TAG\\\" /y"
+                pwsh ". '$ProjectBuilderScripts\\UploadToGitHub.ps1' $VERSION br-na-pm BuildVersionProject \"CICD\\InstallerSetup\\Install\\${FILENAME}${FILEVERSION}.exe\""
+            }
+        }
+        stage('Deploy Feature')
+        {
+            environment {
+                VERSION = Version()
+                EXPORT_NAME = ExportName()
+            }
+            when
+            {
+                anyOf {
+                    branch 'feature/*'
+                    branch 'development'
+                }
+            }
+            steps {
+                
+                //bat "xcopy \"$EXPORT_DIR\\$EXPORT_NAME\" \"C:\\Users\\buchananw\\ABB\\Team Orange - MCR Framework\\ObjectSpawner\\Nightly\\$BRANCH_NAME\\\" /y"
+                bat "xcopy \"$WORKSPACE\\CICD\\InstallerSetup\\Install\\*.exe\" \"C:\\Users\\buchananw\\ABB\\Team Orange - MCR Framework\\ObjectSpawner\\Experimental\\$BRANCH_NAME\\\" /y"
+            }
+        }
+    }
+    post {
+         success {
+            script {
+                def jobName = currentBuild.fullDisplayName
+                emailext body: '''${SCRIPT, template="groovy-html.template"}''',
+                        mimeType: 'text/html',
+                        subject: "[Jenkins] ${jobName}",
+                        to: "${mailRecipients}",
+                        from: "wesley.buchanan@br-automation.com",
+                        replyTo: "${mailRecipients}"
+            }
+        }
+         failure {
+            script {
+            
+                def jobName = currentBuild.fullDisplayName
+                emailext body: '''${SCRIPT, template="groovy-html.template"}''',
+                        mimeType: 'text/html',
+                        subject: "[Jenkins] ${jobName}",
+                        to: "${mailRecipients}",
+                        from: "wesley.buchanan@br-automation.com",
+                        replyTo: "${mailRecipients}"
+            }
+
+         }
+         unstable {
+             echo 'This will run only if the run was marked as unstable'
+         }
+         changed {
+             echo 'This will run only if the state of the Pipeline has changed'
+             echo 'For example, if the Pipeline was previously failing but is now successful'
+         }
+    }
+}

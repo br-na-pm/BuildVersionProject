@@ -1,0 +1,30 @@
+{
+    "libraries" :
+    [
+        "asieccon"
+    ],
+    "compileLibraries" :
+    [],
+    "mapp":
+    [],
+    "files" :
+    [
+        "Logical\\BuildVersion"
+    ],
+    "mappViewfiles" :
+    [
+        "Logical\\Project.language",
+        "Logical\\mappView\\Widgets\\BuildVersionWidget",
+        "Physical\\ArSim\\PC\\Connectivity\\OpcUA\\BuildVer.uad"
+    ],
+    "physical":
+    {
+        "deployTasks" :
+        [
+            "Source.BuildVer.prg"
+        ],
+        "fileDevices":
+        [],
+        "enableOpcUa" : true
+    }
+}
