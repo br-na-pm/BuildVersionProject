@@ -94,7 +94,7 @@ pipeline {
             environment {
                 TAG = Tag()
                 VERSION = Version().substring(0, Version().lastIndexOf('.'));
-                FILENAME = "AS4_TP_mappFramework_";
+                FILENAME = "AS4_TS_BuildVersion_";
                 FILEVERSION = Version().substring(1);
             }
             when
@@ -103,7 +103,7 @@ pipeline {
             }
             steps {
                 //bat "xcopy \"$WORKSPACE\\CICD\\InstallerSetup\\Install\\*.exe\" \"C:\\Users\\buchananw\\ABB\\Team Orange - MCR Framework\\ObjectSpawner\\Releases\\$TAG\\\" /y"
-                pwsh ". '$ProjectBuilderScripts\\UploadToGitHub.ps1' $VERSION br-na-pm BuildVersionProject \"CICD\\InstallerSetup\\Install\\${FILENAME}${FILEVERSION}.exe\""
+                pwsh ". '$ProjectBuilderScripts\\UploadToGitHub.ps1' $VERSION br-na-pm BuildVersionProject \"$WORKSPACE\\CICD\\InstallerSetup\\Install\\${FILENAME}${FILEVERSION}.exe\""
             }
         }
         // stage('Deploy Feature')
