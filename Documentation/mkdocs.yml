@@ -1,0 +1,10 @@
+site_name: Build Version
+theme:
+    name: brtheme
+    
+docs_dir: docs
+
+markdown_extensions:
+    - admonition
+    - pymdownx.details
+
