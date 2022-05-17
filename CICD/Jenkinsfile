@@ -58,7 +58,7 @@ def ExportName(){
 }
 
 pipeline {
-    
+    agent any
     environment {
         PROJECT_DIR = "$WORKSPACE\\AS-4.11\\";
         EXPORT_CONFIG_DIR = "$WORKSPACE\\CICD\\ExportConfigurations"
