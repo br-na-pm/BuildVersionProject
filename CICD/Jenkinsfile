@@ -92,8 +92,10 @@ pipeline {
         stage('Deploy Release')
         {
             environment {
-                VERSION = Version()
                 TAG = Tag()
+                VERSION = Version().substring(0, Version().lastIndexOf('.'));
+                FILENAME = "AS4_TP_mappFramework_";
+                FILEVERSION = Version().substring(1);
             }
             when
             {
@@ -104,25 +106,25 @@ pipeline {
                 pwsh ". '$ProjectBuilderScripts\\UploadToGitHub.ps1' $VERSION br-na-pm BuildVersionProject \"CICD\\InstallerSetup\\Install\\${FILENAME}${FILEVERSION}.exe\""
             }
         }
-        stage('Deploy Feature')
-        {
-            environment {
-                VERSION = Version()
-                EXPORT_NAME = ExportName()
-            }
-            when
-            {
-                anyOf {
-                    branch 'feature/*'
-                    branch 'development'
-                }
-            }
-            steps {
+        // stage('Deploy Feature')
+        // {
+        //     environment {
+        //         VERSION = Version()
+        //         EXPORT_NAME = ExportName()
+        //     }
+        //     when
+        //     {
+        //         anyOf {
+        //             branch 'feature/*'
+        //             branch 'development'
+        //         }
+        //     }
+        //     steps {
                 
-                //bat "xcopy \"$EXPORT_DIR\\$EXPORT_NAME\" \"C:\\Users\\buchananw\\ABB\\Team Orange - MCR Framework\\ObjectSpawner\\Nightly\\$BRANCH_NAME\\\" /y"
-                bat "xcopy \"$WORKSPACE\\CICD\\InstallerSetup\\Install\\*.exe\" \"C:\\Users\\buchananw\\ABB\\Team Orange - MCR Framework\\ObjectSpawner\\Experimental\\$BRANCH_NAME\\\" /y"
-            }
-        }
+        //         //bat "xcopy \"$EXPORT_DIR\\$EXPORT_NAME\" \"C:\\Users\\buchananw\\ABB\\Team Orange - MCR Framework\\ObjectSpawner\\Nightly\\$BRANCH_NAME\\\" /y"
+        //         bat "xcopy \"$WORKSPACE\\CICD\\InstallerSetup\\Install\\*.exe\" \"C:\\Users\\buchananw\\ABB\\Team Orange - MCR Framework\\ObjectSpawner\\Experimental\\$BRANCH_NAME\\\" /y"
+        //     }
+        // }
     }
     post {
          success {
