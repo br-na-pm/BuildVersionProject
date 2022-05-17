@@ -58,14 +58,9 @@ def ExportName(){
 }
 
 pipeline {
-    agent any 
-    triggers {
-        cron(Branch().matches('release*') ? '50 8 * * *' : '')
-    }
-
+    
     environment {
         PROJECT_DIR = "$WORKSPACE\\AS-4.11\\";
-        DOCUMENTATION_DIR = "$WORKSPACE\\Documents\\DocStudio"
         EXPORT_CONFIG_DIR = "$WORKSPACE\\CICD\\ExportConfigurations"
         EXPORT_DIR = "$WORKSPACE\\CICD\\build"        
     }
