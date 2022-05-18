@@ -4,6 +4,5 @@
     <Widget xsi:type="widgets.BuildVersionWidget.BuildVersionBasic" id="BuildVersionBasic1" top="180" left="80" zIndex="0" />
     <Widget xsi:type="widgets.BuildVersionWidget.BuildVersionStandard" id="BuildVersionStandard1" top="270" left="100" zIndex="1" />
     <Widget xsi:type="widgets.BuildVersionWidget.BuildVersionAdvanced" id="BuildVersionAdvanced1" top="460" left="100" zIndex="2" />
-    <Widget xsi:type="widgets.brease.Label" id="Label1" top="240" left="900" zIndex="3" ellipsis="true" text="Label1" />
   </Widgets>
 </Content>
