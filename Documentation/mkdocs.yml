@@ -4,7 +4,21 @@ theme:
     
 docs_dir: docs
 
+plugins:
+    - br-as-help-index-gen:
+        ComponentName: Test
+
 markdown_extensions:
     - admonition
     - pymdownx.details
 
+nav:
+    - Build Version: 
+        - Build Version: 'index.md'
+        - Build Version Task:
+            - Build Version Task: 'BuildVersionTask/index.md'
+            - Installation: 'BuildVersionTask/WithFrameworkImporterHelp.md'
+            - Common Errors: 'BuildVersionTask/CommonErrors.md'
+            - Build Warnings: 'BuildVersionTask/BuildWarnings.md'
+            - Pre-build Script Options: 'BuildVersionTask/ScriptOptions.md'
+        - Widget library: 'MpViewWidgetLibrary/index.md'

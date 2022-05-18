@@ -1,4 +1,4 @@
-# BuildVersion
+# Build Version
 
 **BuildVersion** is a software package for Automation Studio projects.  
 The package includes a PowerShell script to automatically capture version information during a build.  
@@ -41,8 +41,8 @@ Varying level of detailed pre-built compound widgets for ease of deployment.
 
 
 ## Topics
-- [Task](BuildVersionTask.md)
-    - [Common Errors](./Common%20Errors.md)
-    - [Build Warnings](./Build%20Warnings.md)
-    - [Pre-Build Script Options](./Script%20Options.md)
-- [WidgetLibrary](MpViewWidgetLibrary.md)
+- [Task](BuildVersionTask/index.md)
+    - [Common Errors](BuildVersionTask/CommonErrors.md)
+    - [Build Warnings](BuildVersionTask/BuildWarnings.md)
+    - [Pre-Build Script Options](BuildVersionTask/ScriptOptions.md)
+- [WidgetLibrary](MpViewWidgetLibrary/index.md)

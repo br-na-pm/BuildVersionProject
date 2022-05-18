@@ -80,6 +80,8 @@ Section "$(BuildVersionBaseShortText)" BuildVersionBase
 		File /r "..\build\*.zip"
     FindClose $0
 	
+	!insertmacro InstallHelp "$VersionBaseFolder" "..\Help\"
+
 	;File /r "build\*.zip"
 	;SetOutPath "$VersionBaseFolder\AS\TechnologySolutions\${ProductNameShort}"
 	;File /r "TechnologySolution\*.*"
