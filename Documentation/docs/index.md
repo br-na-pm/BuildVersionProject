@@ -18,18 +18,31 @@ Following the installation instructions above, the local variable BuildVersion i
 The entire variable declaration file is overwritten and automatically ignored by git to avoid frequent differences.
 
 #### Global Variable Initialization
-    - Declare a variable with type `BuildVersionType` in the Global.var file. 
-    - The BuildVersion package will search for any variable of this type and initialize it with the version information on any build. 
-    - A confirmation message is written to the console regarding which variable was initialized.
-    - Aside from the variable of type `BuildVersionType`, the Global.var file remains unchanged.
+
+- Declare a variable with type `BuildVersionType` in the Global.var file. 
+- The BuildVersion package will search for any variable of this type and initialize it with the version information on any build. 
+- A confirmation message is written to the console regarding which variable was initialized.
+- Aside from the variable of type `BuildVersionType`, the Global.var file will remain unchanged.
+  
 #### Configuration Version
-*Experimental*
 
 Set the active configuration's version if the tag matches a `<major>.<minor>.<patch>` number format.
 
+!!! notice danger "Expiremental"
+    The above feature is still in an expiremental state and may not work as expected.
+
 #### mappView Widgets
-    - [BuildVersion Widget Library](https://github.com/br-na-pm/BuildVersionWidget#readme)
+Varying level of detailed pre-built compound widgets for ease of deployment.
+
+![Basic Widget](images/Basic%20BuildVersion%20Widget.png)
+![Standard Widget](images/Standard%20BuildVersion%20Widget.png)
+![Advanced Widget](images/Advanced%20BuildVersion%20Widget.png)
+
+
 
 ## Topics
 - [Task](BuildVersionTask.md)
+    - [Common Errors](./Common%20Errors.md)
+    - [Build Warnings](./Build%20Warnings.md)
+    - [Pre-Build Script Options](./Script%20Options.md)
 - [WidgetLibrary](MpViewWidgetLibrary.md)
