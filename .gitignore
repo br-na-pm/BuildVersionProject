@@ -47,3 +47,9 @@ Python/dist/**
 *.spec
 /Python/__pycache__/**
 *.ini
+
+#Mk Docs Build Files
+/CICD/Help*
+
+#Local Installer Builds
+/CICD/InstallerSetup/Install/*
