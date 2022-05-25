@@ -22,3 +22,4 @@ PowerShell -ExecutionPolicy ByPass -File $(WIN32_AS_PROJECT_PATH)\Logical\BuildV
 Upon successful installation, users will see BuildVersion messages in the output results when building.
 
 ![BuildVersion output results 2022-04-10_13 48 16](../images/Step%201%202022-04-10_13-37-35.gif)
+
