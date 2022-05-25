@@ -70,9 +70,10 @@ pipeline {
         {
             steps {
                 powershell(returnStdout: true, script: "python -m pip install --upgrade pip");
-                powershell(returnStdout: true, script: "pip install mkdocs");
-                powershell(returnStdout: true, script: "pip install BRAsHelpIndexGenerator");
-                powershell(returnStdout: true, script: "pip install mkdocs-br-industrial-theme");
+                powershell(returnStdout: true, script: "python -m pip install mkdocs");
+                powershell(returnStdout: true, script: "python -m pip install BRAsHelpIndexGenerator");
+                powershell(returnStdout: true, script: "python -m pip install mkdocs-br-industrial-theme");
+                powershell(returnStdout: true, script: "python -m pip install pymdown-extensions");
             }
         }
         stage('Build AS') {
@@ -83,7 +84,9 @@ pipeline {
         //build MkDocs documentation
         stage ('Build Documentation'){
             steps{
-                powershell(returnStdout:true, script: "cd ./CICD mkdocs build")
+                dir("Documentation"){
+                    powershell(returnStdout:true, script: "mkdocs build")
+                }
             }
         }
         stage('Create Framework Export') {
