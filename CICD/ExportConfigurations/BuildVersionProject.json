@@ -21,7 +21,7 @@
     {
         "deployTasks" :
         [
-            "Source.BuildVer.prg"
+            "BuildVersion.BuildVer.prg"
         ],
         "fileDevices":
         [],
