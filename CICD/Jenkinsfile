@@ -95,7 +95,7 @@ pipeline {
                 EXPORT_NAME = 'BuildVersion'
             }
             steps {
-                powershell(returnStdout: true, script: "python \"$ProjectBuilderScripts\\Export.py\" --project \"$PROJECT_DIR\" --config \"$EXPORT_CONFIG_DIR\\BuildVersionProject.json\" --output \"$EXPORT_DIR\" --physical \"Physical\\ArSim\"");
+                powershell(returnStdout: true, script: "python \"$ProjectBuilderScripts\\Export.py\" --project \"$PROJECT_DIR\" --config \"$EXPORT_CONFIG_DIR\\Build Version.json\" --output \"$EXPORT_DIR\" --physical \"Physical\\ArSim\"");
             }
         }
         stage('Create Installer') {
