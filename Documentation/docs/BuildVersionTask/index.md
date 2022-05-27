@@ -6,7 +6,7 @@ The Build Version package uses 2 main components:
 - BuildVersion Task
 
 ## Pre Build Script
-The pre-build script is a Microsoft Powershell script that handles the interaction with git to parse out relevant version information for the project. The pre-build script also receives information from Automation Studio such as the Automation Studio version, PC name to include in your version information.
+The pre-build script is a Microsoft Powershell script that handles the interaction with git to parse out relevant version information for the project. The pre-build script also receives information from Automation Studio such as the Automation Studio version, PC name to include in your version information. This script is called by utilizing Automation Studio's pre-build event seen under the Project -> Change Runtime Version -> Build Events tab.
 
 Additionally the script will create/update the BuildVersion.var file with the appropriate information for the current build.
 
@@ -24,5 +24,7 @@ This task can be placed in any task class, however for simplicity it is recommen
 
 Deploying the package can be accomplished in one of two ways, with or without the Framework Importer tool. It is recommended to use the Framework importer tool.
 
-1. [With The Framework Importer](WithFrameworkImporterHelp.md)
-2. [Without The Framework Importer](WithoutFrameworkImporterHelp.md)
+[With The Framework Importer](WithFrameworkImporterHelp.md)
+
+
+The steps to implement without the Framework Importer tool can be found [here](https://github.com/br-na-pm/BuildVersion)
