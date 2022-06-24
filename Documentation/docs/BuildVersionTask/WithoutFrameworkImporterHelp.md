@@ -14,7 +14,7 @@
 - The pre-build event must be set for each configuration seeking version information
 
 ```powershell
-PowerShell -ExecutionPolicy ByPass -File $(WIN32_AS_PROJECT_PATH)\Logical\BuildVersion\BuildVersion.ps1 "$(WIN32_AS_PROJECT_PATH)" "$(AS_VERSION)" "$(AS_USER_NAME)" "$(AS_PROJECT_NAME)" "$(AS_CONFIGURATION)" "$(AS_BUILD_MODE)"
+PowerShell -ExecutionPolicy ByPass -File $(WIN32_AS_PROJECT_PATH)\Logical\BuildVersion\BuildVersion.ps1 $(WIN32_AS_PROJECT_PATH) $(AS_VERSION) $(AS_USER_NAME) $(AS_PROJECT_NAME) $(AS_CONFIGURATION) $(AS_BUILD_MODE)
 ```
 
 ![Step 2 2022-04-10_13-49-32](../images/Step%202%202022-04-10_13-49-32.gif)
