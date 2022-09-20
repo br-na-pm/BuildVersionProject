@@ -104,7 +104,7 @@ pipeline {
             }
             steps {
                 powershell(returnStdout: true, script: "python \"$ProjectBuilderScripts\\UpdateInstallerVersion.py\" --project \"$WORKSPACE\\CICD\\InstallerSetup\\\" --name BuildVersion --version $VERSION");
-                powershell(returnStdout: true, script: "& 'C:\\Program Files (x86)\\NSIS\\makensis.exe' \"$WORKSPACE\\CICD\\InstallerSetup\\SetupTechnologySolutionComplete.nsi\"");
+                powershell(returnStdout: true, script: "& "\$MakeNsis\" \"$WORKSPACE\\CICD\\InstallerSetup\\SetupTechnologySolutionComplete.nsi\"");
             }
         }
         stage('Deploy Release')
